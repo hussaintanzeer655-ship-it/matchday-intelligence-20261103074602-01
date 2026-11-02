@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'/>
+<meta name='viewport' content='width=device-width, initial-scale=1'/>
+<title>Matchday Intelligence</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZG0QK311WX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZG0QK311WX');
+</script>
+<link rel='preload' href='styles.css' as='style'/>
+</head>
+<body>
+  <header class='brand'>
+    <div class='logo'>Matchday Intelligence</div>
+    <nav><a href="#scores">Scores</a><a href="#fixtures">Fixtures</a><a href="#center">Center</a><a href="#news">News</a></nav>
+  </header>
+  <section class='hero'>
+    <h1>Live. Fast. Insightful.</h1>
+    <p>Premium live scores, up-to-the-second match center and tactical notes.</p>
+    <div class='search'><input placeholder='Search matches, teams or players' id='searchBox'/><button onclick='searchNow()'>Search</button></div>
+  </section>
+  <section id='fixtures' class='panel'>
+    <h2>Upcoming Matches</h2>
+    <ul id='upcoming'>
+      <li>12:00 BST - Manchester United vs Arsenal</li>
+      <li>14:30 BST - Chelsea vs Liverpool</li>
+      <li>17:00 BST - Barcelona vs Real Madrid</li>
+    </ul>
+  </section>
+  <section id='scores' class='panel'>
+    <h2>Recent Results</h2>
+    <div class='grid'>
+      <div class='card'>Tue 10: City 2-1 Spurs</div>
+      <div class='card'>Tue 10: Ajax 0-3 PSG</div>
+      <div class='card'>Tue 10: Bayern 1-1 Dortmund</div>
+    </div>
+  </section>
+  <section id='standings' class='panel'>
+    <h2>League Table</h2>
+    <table class='standings'><thead><tr><th>#</th><th>Team</th><th>Pts</th><th>GD</th></tr></thead><tbody>
+      <tr><td>1</td><td>Manchester United</td><td>28</td><td>+18</td></tr>
+      <tr><td>2</td><td>Liverpool</td><td>25</td><td>+12</td></tr>
+      <tr><td>3</td><td>Chelsea</td><td>23</td><td>+8</td></tr>
+    </tbody></table>
+  </section>
+  <section id='players' class='panel'>
+    <h2>Player Spotlight</h2>
+    <div class='grid' id='playerGrid'>
+      <div class='player card'>
+        <div class='pos'>FW</div><div class='name'>A. Smith</div><div class='stat'>G+A: 8-4</div>
+      </div>
+      <div class='player card'>
+        <div class='pos'>MF</div><div class='name'>L. Chen</div><div class='stat'>P: 7.2</div>
+      </div>
+      <div class='player card'>
+        <div class='pos'>DF</div><div class='name'>M. Rossi</div><div class='stat'>Tackles: 32</div>
+      </div>
+    </div>
+  </section>
+  <section id='news' class='panel'>
+    <h2>Football News</h2>
+    <ul>
+      <li>Mid-season transfer rumors swirl around top clubs.</li>
+      <li>Injury updates ahead of the big derbies.</li>
+      <li>Analytics: pressing intensity trends across leagues.</li>
+    </ul>
+  </section>
+  <footer class='siteFooter'>
+    <p>&copy; 2026 Matchday Intelligence. All rights reserved.</p>
+    <button id='darkToggle'>Dark mode</button>
+  </footer>
+  <div id='matchDetail' class='modal' hidden>
+    <div class='modalContent'>
+      <h3>Match Detail</h3>
+      <p id='mdText'>Loading...</p>
+      <button onclick='closeModal()'>Close</button>
+    </div>
+  </div>
+  <script>
+    // Interaction 1: Tabs-like navigation toggle in panels
+    document.querySelectorAll('.panel').forEach(p=>{p.style.display='block';});
+    // Interaction 2: simple modal on click a score
+    document.querySelectorAll('.card').forEach(el=>el.addEventListener('click',()=>{document.getElementById('mdText').textContent='Detail for '+el.textContent; document.getElementById('matchDetail').hidden=false;}));
+    function closeModal(){document.getElementById('matchDetail').hidden=true;}
+    function searchNow(){
+      const q=document.getElementById('searchBox').value.toLowerCase();
+      const m=document.getElementById('upcoming');
+      m.innerHTML='';
+      if(!q){['12:00 Manchester United vs Arsenal','14:30 Chelsea vs Liverpool','17:00 Barcelona vs Real Madrid'].forEach(t=>{const li=document.createElement('li');li.textContent=t; m.appendChild(li);});return;}
+      ['12:00 Manchester United vs Arsenal','14:30 Chelsea vs Liverpool','17:00 Barcelona vs Real Madrid'].forEach(t=>{if(t.toLowerCase().includes(q)){const li=document.createElement('li');li.textContent=t; m.appendChild(li);}});
+    }
+    // Interaction 3: dark mode toggle
+    document.getElementById('darkToggle').addEventListener('click',()=>{document.body.classList.toggle('dark');});
+  </script>
+</body>
+</html>
